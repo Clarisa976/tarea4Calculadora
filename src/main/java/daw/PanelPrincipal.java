@@ -25,6 +25,10 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
     private JTextArea areaTexto;
     private int tipoOperacion;
 
+    //atributos para realizar los cálculos necesarios
+    private double numero1 = 0, numero2 = 0, resultado = 0;
+    private char operador = ' ';
+
     // Constructor
     public PanelPrincipal() {
         initComponents();
