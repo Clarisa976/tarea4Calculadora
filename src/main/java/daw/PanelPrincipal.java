@@ -27,8 +27,9 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
     private int tipoOperacion;
 
     //atributos para realizar los cálculos necesarios
-    private double numero1 = 0, numero2 = 0, resultado = 0;
-    private char operador = ' ';
+    private int numero1 = 0, numero2 = 0;
+    private double resultado = 0;
+    private String operador = "";
 
     // Constructor
     public PanelPrincipal() {
@@ -92,7 +93,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
         // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
         try {
             //se comprueba que sea un número
-            double valor = Double.parseDouble(textoBotoncito);
+            int valor = Integer.parseInt(textoBotoncito);
             //evitamos que se hagan operaciones si no se pone un número primero
             if (tipoOperacion != -1 || areaTexto.getText().isEmpty()) {
                 areaTexto.setText("");
@@ -103,12 +104,24 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
             //agregamos un switch para que haga las diferentes operaciones
             switch (textoBotoncito) {
                 case "+":
+                    numero1 = Integer.parseInt(areaTexto.getText());
+                    operador = "+";
+                    areaTexto.setText(numero1+operador);
                 case "-":
+                    numero1 = Integer.parseInt(areaTexto.getText());
+                    operador = "-";
+                    areaTexto.setText(numero1+operador);
                 case "*":
+                    numero1 = Integer.parseInt(areaTexto.getText());
+                    operador = "*";
+                    areaTexto.setText(numero1+operador);
                 case "/":
+                    numero1 = Integer.parseInt(areaTexto.getText());
+                    operador = "/";
+                    areaTexto.setText(numero1+operador);
                 case "=":
                     if (tipoOperacion == 1 && !areaTexto.getText().isEmpty()) {
-                        numero2 = Double.parseDouble(areaTexto.getText());
+                        numero2 = Integer.parseInt(areaTexto.getText());
                         // resultado = calcularResultado(numero1, numero2, operador);
                         areaTexto.setText(String.valueOf(resultado));
                         tipoOperacion = -1; //borra la operación
@@ -116,19 +129,19 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                     break;
                 case "C":
                     //numero1 = numero2 = resultado = 0;
-                    operador = ' ';
+                    operador = " ";
                     tipoOperacion = -1;
                     areaTexto.setText("");
                     break;
                 default:
-                    //operador += textoBotoncito;
+                    operador += textoBotoncito;
                     areaTexto.setText(areaTexto.getText() + textoBotoncito);
                     break;
             }
         }
     }
 
-    private double calcularResultado(double num1, double num2, String oper) {
+    private double calcularResultado(int num1, int num2, String oper) {
         switch (oper) {
             case "+":
                 return num1 + num2;
@@ -138,7 +151,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                 return num1 * num2;
             case "/":
                 if (num2 != 0) {
-                    return num1 / num2;
+                    return (double)num1 / num2;//forzamos a uno a double para no perder decimales
                 } else {
                     JOptionPane.showMessageDialog(null, "No se puede dividir por cero");
                     return 0;
