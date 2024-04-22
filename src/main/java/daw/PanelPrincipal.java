@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 /**
@@ -105,29 +106,46 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                 case "-":
                 case "*":
                 case "/":
-                    numero1 = Double.parseDouble(areaTexto.getText());
-                    operador = textoBotoncito.charAt(0);
-                    tipoOperacion = 1;
-                    areaTexto.setText("");
-                    break;
                 case "=":
                     if (tipoOperacion == 1 && !areaTexto.getText().isEmpty()) {
                         numero2 = Double.parseDouble(areaTexto.getText());
-                        //resultado;
+                        // resultado = calcularResultado(numero1, numero2, operador);
                         areaTexto.setText(String.valueOf(resultado));
                         tipoOperacion = -1; //borra la operación
                     }
                     break;
                 case "C":
-                    numero1 = numero2 = resultado = 0;
+                    //numero1 = numero2 = resultado = 0;
                     operador = ' ';
                     tipoOperacion = -1;
                     areaTexto.setText("");
+                    break;
+                default:
+                    //operador += textoBotoncito;
+                    areaTexto.setText(areaTexto.getText() + textoBotoncito);
                     break;
             }
         }
     }
 
+    private double calcularResultado(double num1, double num2, String oper) {
+        switch (oper) {
+            case "+":
+                return num1 + num2;
+            case "-":
+                return num1 - num2;
+            case "*":
+                return num1 * num2;
+            case "/":
+                if (num2 != 0) {
+                    return num1 / num2;
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se puede dividir por cero");
+                    return 0;
+                }
+        }
+        return 0;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
