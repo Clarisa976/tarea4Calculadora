@@ -80,14 +80,52 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         // Se obtiene el objeto que desencadena el evento
-        Object o = e.getSource();
-        // Si es un botón
+        JButton botoncito = (JButton) e.getSource();
+        String textoBotoncito = botoncito.getText();
+        /*// Si es un botón
         if (o instanceof JButton) {
             System.out.println(((JButton) o).getText());
             areaTexto.setText(((JButton) o).getText());
-        }
+        }*/
 
         // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
+        try {
+            //se comprueba que sea un número
+            double valor = Double.parseDouble(textoBotoncito);
+            //evitamos que se hagan operaciones si no se pone un número primero
+            if (tipoOperacion != -1 || areaTexto.getText().isEmpty()) {
+                areaTexto.setText("");
+                tipoOperacion = -1;
+            }
+            areaTexto.append(textoBotoncito);
+        } catch (NumberFormatException ex) {
+            //agregamos un switch para que haga las diferentes operaciones
+            switch (textoBotoncito) {
+                case "+":
+                case "-":
+                case "*":
+                case "/":
+                    numero1 = Double.parseDouble(areaTexto.getText());
+                    operador = textoBotoncito.charAt(0);
+                    tipoOperacion = 1;
+                    areaTexto.setText("");
+                    break;
+                case "=":
+                    if (tipoOperacion == 1 && !areaTexto.getText().isEmpty()) {
+                        numero2 = Double.parseDouble(areaTexto.getText());
+                        //resultado;
+                        areaTexto.setText(String.valueOf(resultado));
+                        tipoOperacion = -1; //borra la operación
+                    }
+                    break;
+                case "C":
+                    numero1 = numero2 = resultado = 0;
+                    operador = ' ';
+                    tipoOperacion = -1;
+                    areaTexto.setText("");
+                    break;
+            }
+        }
     }
 
 
