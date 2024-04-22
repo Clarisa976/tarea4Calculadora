@@ -83,16 +83,18 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
     public void actionPerformed(ActionEvent e) {
         // Se obtiene el objeto que desencadena el evento
         Object o = e.getSource();
-        
+
         // Si es el botón para borrar se borra 
-        if (o.equals(this.botonera.grupoBotones[15])){
+        if (o.equals(this.botonera.grupoBotones[15])) {
             areaTexto.setText("");
-//        if (o instanceof JButton) {
-//            System.out.println(((JButton) o).getText());
-//            areaTexto.setText(((JButton) o).getText());
-        //si es el botón de "=" se realiza la operación
-        }else if(o.equals(this.botonera.grupoBotones[14])){
-            
+            //si es el botón de "=" se realiza la operación
+        } else if (o.equals(this.botonera.grupoBotones[14])) {
+            //usamos una expresión regular para ver si es una operación y proceder
+            //con los cálculos necesarios
+
+            //si es otro botón muestra    
+        } else if (o instanceof JButton) {
+            areaTexto.setText(this.areaTexto.getText() + ((JButton) o).getText());
         }
 
         // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
@@ -156,7 +158,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                 return num1 * num2;
             case "/":
                 if (num2 != 0) {
-                    return (double)num1 / num2;//forzamos a uno a double para no perder decimales
+                    return (double) num1 / num2;//forzamos a uno a double para no perder decimales
                 } else {
                     JOptionPane.showMessageDialog(null, "No se puede dividir por cero");
                     return 0;
