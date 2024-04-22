@@ -38,7 +38,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
         // Creamos el panel de botones
         botonera = new PanelBotones();
         // Creamos el área de texto
-        areaTexto = new JTextArea(10, 50);
+        areaTexto = new JTextArea(10, 20);
         areaTexto.setEditable(false);
         areaTexto.setBackground(Color.white);
 
@@ -106,33 +106,14 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                     break;
                 case "=":
                     String[] numeros = areaTexto.getText().split("\\+|\\-|\\*|\\/");
-                    double resultado= 0;
                     try {
-                        switch (tipoOperacion) {
-                            case 1: //suma
-                                resultado = Double.parseDouble(numeros[0]) + Double.parseDouble(numeros[1]);
-                                areaTexto.setText(Integer.toString((int) resultado));
-                                break;
-                            case 2: //resta
-                                resultado = Double.parseDouble(numeros[0]) - Double.parseDouble(numeros[1]);
-                                areaTexto.setText(Integer.toString((int) resultado));
-                                break;
-                            case 3: //multiplicación
-                                resultado = Double.parseDouble(numeros[0]) * Double.parseDouble(numeros[1]);
-                                areaTexto.setText(Integer.toString((int) resultado));
-                                break;
-                            case 4: //división
-                                if (Integer.parseInt(numeros[1]) == 0) {
-                                areaTexto.setText("No se puede dividir entre cero");
-                                return;
-                            }
-                            resultado = Double.parseDouble(numeros[0]) / Double.parseDouble(numeros[1]);
-                            areaTexto.setText(Double.toString(resultado));
-                            break;
-                    }
-                    
+
+                        calcularResultado(tipoOperacion, Double.parseDouble(numeros[0]), Double.parseDouble(numeros[1]));
+
                     } catch (Exception ex) {
                         areaTexto.setText("Error de cálculo");
+                        //areaTexto.setText("");
+                        tipoOperacion = -1;
                     }
                     break;
                 case "C":
@@ -145,7 +126,38 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
             }
         }
 
-        
+    }
+
+    //método para realizar los cálculos
+    private double calcularResultado(int tipoOperacion, double num1, double num2) {
+        double resultado = 0;
+        switch (tipoOperacion) {
+            case 1: //suma
+                resultado = num1 + num2;
+                areaTexto.setText(Integer.toString((int) resultado));
+                break;
+            case 2: //resta
+                resultado = num1 - num2;
+                areaTexto.setText(Integer.toString((int) resultado));
+                break;
+            case 3: //multiplicación
+                resultado = num1 * num2;
+                areaTexto.setText(Integer.toString((int) resultado));
+                break;
+            case 4: //división
+                if (num2 == 0) {
+                    resultado = num1 / num2;
+                    areaTexto.setText(Double.toString(resultado));
+                    areaTexto.setText("No se puede dividir entre cero");
+                    //areaTexto.setText("");
+                    tipoOperacion = -1;
+                    return 0;
+                }
+                resultado = num1 / num2;
+                areaTexto.setText(Double.toString(resultado));
+                break;
+        }
+        return resultado;
     }
 
 }
