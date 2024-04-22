@@ -105,7 +105,35 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                     areaTexto.setText(areaTexto.getText() + "/");
                     break;
                 case "=":
-
+                    String[] numeros = areaTexto.getText().split("\\+|\\-|\\*|\\/");
+                    double resultado= 0;
+                    try {
+                        switch (tipoOperacion) {
+                            case 1: //suma
+                                resultado = Double.parseDouble(numeros[0]) + Double.parseDouble(numeros[1]);
+                                areaTexto.setText(Integer.toString((int) resultado));
+                                break;
+                            case 2: //resta
+                                resultado = Double.parseDouble(numeros[0]) - Double.parseDouble(numeros[1]);
+                                areaTexto.setText(Integer.toString((int) resultado));
+                                break;
+                            case 3: //multiplicación
+                                resultado = Double.parseDouble(numeros[0]) * Double.parseDouble(numeros[1]);
+                                areaTexto.setText(Integer.toString((int) resultado));
+                                break;
+                            case 4: //división
+                                if (Integer.parseInt(numeros[1]) == 0) {
+                                areaTexto.setText("No se puede dividir entre cero");
+                                return;
+                            }
+                            resultado = Double.parseDouble(numeros[0]) / Double.parseDouble(numeros[1]);
+                            areaTexto.setText(Double.toString(resultado));
+                            break;
+                    }
+                    
+                    } catch (Exception ex) {
+                        areaTexto.setText("Error de cálculo");
+                    }
                     break;
                 case "C":
                     areaTexto.setText("");
@@ -117,54 +145,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
             }
         }
 
-        /*try {
-            //se comprueba que sea un número
-            int valor = Integer.parseInt(textoBotoncito);
-            //evitamos que se hagan operaciones si no se pone un número primero
-            if (tipoOperacion != -1 || areaTexto.getText().isEmpty()) {
-                areaTexto.setText("");
-                tipoOperacion = -1;
-            }
-            areaTexto.append(textoBotoncito);
-        } catch (NumberFormatException ex) {
-            //agregamos un switch para que haga las diferentes operaciones
-            switch (textoBotoncito) {
-                case "+":
-                    numero1 = Integer.parseInt(areaTexto.getText());
-                    operador = "+";
-                    areaTexto.setText(numero1+operador);
-                case "-":
-                    numero1 = Integer.parseInt(areaTexto.getText());
-                    operador = "-";
-                    areaTexto.setText(numero1+operador);
-                case "*":
-                    numero1 = Integer.parseInt(areaTexto.getText());
-                    operador = "*";
-                    areaTexto.setText(numero1+operador);
-                case "/":
-                    numero1 = Integer.parseInt(areaTexto.getText());
-                    operador = "/";
-                    areaTexto.setText(numero1+operador);
-                case "=":
-                    if (tipoOperacion == 1 && !areaTexto.getText().isEmpty()) {
-                        numero2 = Integer.parseInt(areaTexto.getText());
-                        // resultado = calcularResultado(numero1, numero2, operador);
-                        areaTexto.setText(String.valueOf(resultado));
-                        tipoOperacion = -1; //borra la operación
-                    }
-                    break;
-                case "C":
-                    //numero1 = numero2 = resultado = 0;
-                    operador = " ";
-                    tipoOperacion = -1;
-                    areaTexto.setText("");
-                    break;
-                default:
-                    operador += textoBotoncito;
-                    areaTexto.setText(areaTexto.getText() + textoBotoncito);
-                    break;
-            }
-        }*/
+        
     }
 
 }
