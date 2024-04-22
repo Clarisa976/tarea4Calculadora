@@ -82,16 +82,21 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         // Se obtiene el objeto que desencadena el evento
-        JButton botoncito = (JButton) e.getSource();
-        String textoBotoncito = botoncito.getText();
-        /*// Si es un botón
-        if (o instanceof JButton) {
-            System.out.println(((JButton) o).getText());
-            areaTexto.setText(((JButton) o).getText());
-        }*/
+        Object o = e.getSource();
+        
+        // Si es el botón para borrar se borra 
+        if (o.equals(this.botonera.grupoBotones[15])){
+            areaTexto.setText("");
+//        if (o instanceof JButton) {
+//            System.out.println(((JButton) o).getText());
+//            areaTexto.setText(((JButton) o).getText());
+        //si es el botón de "=" se realiza la operación
+        }else if(o.equals(this.botonera.grupoBotones[14])){
+            
+        }
 
         // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
-        try {
+        /*try {
             //se comprueba que sea un número
             int valor = Integer.parseInt(textoBotoncito);
             //evitamos que se hagan operaciones si no se pone un número primero
@@ -138,7 +143,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                     areaTexto.setText(areaTexto.getText() + textoBotoncito);
                     break;
             }
-        }
+        }*/
     }
 
     private double calcularResultado(int num1, int num2, String oper) {
