@@ -26,11 +26,6 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
     private JTextArea areaTexto;
     private int tipoOperacion;
 
-    //atributos para realizar los cálculos necesarios
-    private int numero1 = 0, numero2 = 0;
-    private double resultado = 0;
-    private String operador = "";
-
     // Constructor
     public PanelPrincipal() {
         initComponents();
@@ -87,18 +82,47 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
         // Si es el botón para borrar se borra 
         if (o.equals(this.botonera.grupoBotones[15])) {
             areaTexto.setText("");
-            //si es el botón de "=" se realiza la operación
+            //si es el botón de "=" se realiza la operación 
+            // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
         } else if (o.equals(this.botonera.grupoBotones[14])) {
             //usamos una expresión regular para ver si es una operación y proceder
             //con los cálculos necesarios
+            if (this.areaTexto.getText().matches("[0-9]+[+-/*][0-9]+")) {
+                
+                //identificamos el símbolo dentro del texto
+                if (this.areaTexto.getText().contains("+")) {
+                    String[] operacion = this.areaTexto.getText().split("\\+");
+                    int numero1 = Integer.parseInt(operacion[0]);
+                    int numero2 = Integer.parseInt(operacion[1]);
+                    areaTexto.setText(String.valueOf(numero1 + numero2));
+                } else if (this.areaTexto.getText().contains("-")) {
+                    String[] operacion = this.areaTexto.getText().split("-");
+                    int numero1 = Integer.parseInt(operacion[0]);
+                    int numero2 = Integer.parseInt(operacion[1]);
+                    areaTexto.setText(String.valueOf(numero1 - numero2));
+                } else if (this.areaTexto.getText().contains("*")) {
+                    String[] operacion = this.areaTexto.getText().split("\\*");
+                    int numero1 = Integer.parseInt(operacion[0]);
+                    int numero2 = Integer.parseInt(operacion[1]);
+                    areaTexto.setText(String.valueOf(numero1 * numero2));
+                } else if (this.areaTexto.getText().contains("/")) {
+                    String[] operacion = this.areaTexto.getText().split("/");
+                    double numero3 = Double.parseDouble(operacion[0]);
+                    int numero2 = 0;
+                    if (numero2 != 0) {
+                        numero2 = Integer.parseInt(operacion[1]);
+                        areaTexto.setText(String.valueOf(numero3 + numero2));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se puede dividir por cero");
+                    }
+                }
 
-            //si es otro botón muestra    
-        } else if (o instanceof JButton) {
-            areaTexto.setText(this.areaTexto.getText() + ((JButton) o).getText());
-        }
+                //si es otro botón muestra    
+            } else if (o instanceof JButton) {
+                areaTexto.setText(this.areaTexto.getText() + ((JButton) o).getText());
+            }
 
-        // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
-        /*try {
+            /*try {
             //se comprueba que sea un número
             int valor = Integer.parseInt(textoBotoncito);
             //evitamos que se hagan operaciones si no se pone un número primero
@@ -146,25 +170,8 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                     break;
             }
         }*/
-    }
-
-    private double calcularResultado(int num1, int num2, String oper) {
-        switch (oper) {
-            case "+":
-                return num1 + num2;
-            case "-":
-                return num1 - num2;
-            case "*":
-                return num1 * num2;
-            case "/":
-                if (num2 != 0) {
-                    return (double) num1 / num2;//forzamos a uno a double para no perder decimales
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se puede dividir por cero");
-                    return 0;
-                }
         }
-        return 0;
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
