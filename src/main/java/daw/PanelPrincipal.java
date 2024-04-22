@@ -6,46 +6,51 @@ package daw;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 /**
  *
  * @author clara
  */
-public class PanelPrincipal extends javax.swing.JPanel {
+public class PanelPrincipal extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form PanelPrincipal
      */
     // Atributos de la clase (privados)
-	private PanelBotones botonera;
-	private JTextArea areaTexto;
-	private int tipoOperacion;
-    
-	// Constructor
-	public PanelPrincipal(){
-    		initComponents();
-                inicializacionComponentes();
-    		tipoOperacion = -1; // No hay operaciones en la calculadora
-	}
-    
-	// Se inicializan los componentes gráficos y se colocan en el panel
-	private void inicializacionComponentes(){
-    		// Creamos el panel de botones
-    		botonera = new PanelBotones();
-    		// Creamos el área de texto
-    		areaTexto = new JTextArea(10,50);
-    		areaTexto.setEditable(false);
-    		areaTexto.setBackground(Color.white);
-   
-    		//Establecemos layout del panel principal
-    		this.setLayout(new BorderLayout());
-    		// Colocamos la botonera y el área texto
-    		this.add(areaTexto, BorderLayout.NORTH);
-    		this.add(botonera, BorderLayout.SOUTH);
-	 
-	}
+    private PanelBotones botonera;
+    private JTextArea areaTexto;
+    private int tipoOperacion;
 
+    // Constructor
+    public PanelPrincipal() {
+        initComponents();
+        inicializacionComponentes();
+        tipoOperacion = -1; // No hay operaciones en la calculadora
+    }
+
+    // Se inicializan los componentes gráficos y se colocan en el panel
+    private void inicializacionComponentes() {
+        // Creamos el panel de botones
+        botonera = new PanelBotones();
+        // Creamos el área de texto
+        areaTexto = new JTextArea(10, 50);
+        areaTexto.setEditable(false);
+        areaTexto.setBackground(Color.white);
+
+        //Establecemos layout del panel principal
+        this.setLayout(new BorderLayout());
+        // Colocamos la botonera y el área texto
+        this.add(areaTexto, BorderLayout.NORTH);
+        this.add(botonera, BorderLayout.SOUTH);
+        for (JButton boton : this.botonera.getgrupoBotones()) {
+            boton.addActionListener(this);
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,6 +72,19 @@ public class PanelPrincipal extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Se obtiene el objeto que desencadena el evento
+        Object o = e.getSource();
+        // Si es un botón
+        if (o instanceof JButton) {
+            System.out.println(((JButton) o).getText());
+            areaTexto.setText(((JButton) o).getText());
+        }
+
+        // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
