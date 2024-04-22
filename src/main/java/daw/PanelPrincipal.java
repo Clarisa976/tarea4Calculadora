@@ -82,47 +82,42 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
         // Si es el botón para borrar se borra 
         if (o.equals(this.botonera.grupoBotones[15])) {
             areaTexto.setText("");
-            //si es el botón de "=" se realiza la operación 
             // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
-        } else if (o.equals(this.botonera.grupoBotones[14])) {
-            //usamos una expresión regular para ver si es una operación y proceder
-            //con los cálculos necesarios
-            if (this.areaTexto.getText().matches("[0-9]+[+-/*][0-9]+")) {
-                
-                //identificamos el símbolo dentro del texto
-                if (this.areaTexto.getText().contains("+")) {
-                    String[] operacion = this.areaTexto.getText().split("\\+");
-                    int numero1 = Integer.parseInt(operacion[0]);
-                    int numero2 = Integer.parseInt(operacion[1]);
-                    areaTexto.setText(String.valueOf(numero1 + numero2));
-                } else if (this.areaTexto.getText().contains("-")) {
-                    String[] operacion = this.areaTexto.getText().split("-");
-                    int numero1 = Integer.parseInt(operacion[0]);
-                    int numero2 = Integer.parseInt(operacion[1]);
-                    areaTexto.setText(String.valueOf(numero1 - numero2));
-                } else if (this.areaTexto.getText().contains("*")) {
-                    String[] operacion = this.areaTexto.getText().split("\\*");
-                    int numero1 = Integer.parseInt(operacion[0]);
-                    int numero2 = Integer.parseInt(operacion[1]);
-                    areaTexto.setText(String.valueOf(numero1 * numero2));
-                } else if (this.areaTexto.getText().contains("/")) {
-                    String[] operacion = this.areaTexto.getText().split("/");
-                    double numero3 = Double.parseDouble(operacion[0]);
-                    int numero2 = 0;
-                    if (numero2 != 0) {
-                        numero2 = Integer.parseInt(operacion[1]);
-                        areaTexto.setText(String.valueOf(numero3 + numero2));
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se puede dividir por cero");
-                    }
-                }
 
-                //si es otro botón muestra    
-            } else if (o instanceof JButton) {
-                areaTexto.setText(this.areaTexto.getText() + ((JButton) o).getText());
+            //si es un botón   
+        } else if (o instanceof JButton) {
+            String texto = ((JButton) o).getText();
+            switch (texto) {
+                case "+":
+                    tipoOperacion = 1;
+                    areaTexto.setText(areaTexto.getText() + "+");
+                    break;
+                case "-":
+                    tipoOperacion = 2;
+                    areaTexto.setText(areaTexto.getText() + "-");
+                    break;
+                case "*":
+                    tipoOperacion = 3;
+                    areaTexto.setText(areaTexto.getText() + "*");
+                    break;
+                case "/":
+                    tipoOperacion = 4;
+                    areaTexto.setText(areaTexto.getText() + "/");
+                    break;
+                case "=":
+
+                    break;
+                case "C":
+                    areaTexto.setText("");
+                    tipoOperacion = -1;
+                    break;
+                default:
+                    areaTexto.setText(areaTexto.getText() + texto);
+                    break;
             }
+        }
 
-            /*try {
+        /*try {
             //se comprueba que sea un número
             int valor = Integer.parseInt(textoBotoncito);
             //evitamos que se hagan operaciones si no se pone un número primero
@@ -170,10 +165,10 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                     break;
             }
         }*/
-        }
-
     }
+
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-}
+
