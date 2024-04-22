@@ -4,6 +4,8 @@
 
 package daw;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author clara
@@ -11,6 +13,15 @@ package daw;
 public class Tarea4CalculadoraClara {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        JFrame frame = new JFrame("Calculadora");
+    	frame.setBounds(250, 250, 0, 0);
+    	frame.add(new PanelPrincipal());
+   	// Para que no se redimensione
+        frame.setResizable(false);
+    	frame.setVisible(true);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	frame.pack();
+   	 
+
     }
 }
