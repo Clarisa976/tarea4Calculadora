@@ -86,6 +86,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
         // Si es el botón para borrar se borra 
         if (o.equals(this.botonera.grupoBotones[15])) {
             areaTexto.setText("");
+            areaTexto2.setText("");
             // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
 
             //si es un botón   
@@ -115,13 +116,17 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                         calcularResultado(tipoOperacion, Double.parseDouble(numeros[0]), Double.parseDouble(numeros[1]));
 
                     } catch (NumberFormatException ex) {
-                        //areaTexto.setText("Error de cálculo");
+                    } catch (IndexOutOfBoundsException ioe) {
+                        areaTexto.setText("Error de cálculo");
+                        areaTexto2.setText("");
                         System.out.println("Error de cálculo");
                     }
+
                     break;
 
                 case "C":
                     areaTexto.setText("");
+                    areaTexto2.setText("");
                     tipoOperacion = -1;
                     break;
                 default:
@@ -139,17 +144,17 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
             case 1: //suma
                 resultado = num1 + num2;
                 areaTexto.setText(Double.toString(resultado));
-                areaTexto2.setText(num1+"+"+num2+"="+Double.toString(resultado));
+                areaTexto2.setText(num1 + " + " + num2 + " =");
                 break;
             case 2: //resta
                 resultado = num1 - num2;
                 areaTexto.setText(Double.toString(resultado));
-                areaTexto2.setText(num1+"-"+num2+"="+Double.toString(resultado));
+                areaTexto2.setText(num1 + " - " + num2 + " =");
                 break;
             case 3: //multiplicación
                 resultado = num1 * num2;
                 areaTexto.setText(Double.toString(resultado));
-                areaTexto2.setText(num1+"*"+num2+"="+Double.toString(resultado));
+                areaTexto2.setText(num1 + " * " + num2 + " =");
                 break;
             case 4: //división
                 if (num2 == 0) {
@@ -161,7 +166,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
                 }
                 resultado = num1 / num2;
                 areaTexto.setText(Double.toString(resultado));
-                areaTexto2.setText(num1+"/"+num2+"="+Double.toString(resultado));
+                areaTexto2.setText(num1 + " / " + num2 + " =");
                 break;
         }
         return resultado;
