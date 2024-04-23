@@ -23,7 +23,7 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
      */
     // Atributos de la clase (privados)
     private PanelBotones botonera;
-    private JTextArea areaTexto;
+    private JTextArea areaTexto, areaTexto2;
     private int tipoOperacion;
 
     // Constructor
@@ -41,11 +41,15 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
         areaTexto = new JTextArea(10, 20);
         areaTexto.setEditable(false);
         areaTexto.setBackground(Color.white);
+        areaTexto2 = new JTextArea(2, 20);
+        areaTexto2.setEditable(false);
+        areaTexto2.setBackground(Color.white);
 
         //Establecemos layout del panel principal
         this.setLayout(new BorderLayout());
         // Colocamos la botonera y el área texto
-        this.add(areaTexto, BorderLayout.NORTH);
+        this.add(areaTexto, BorderLayout.BEFORE_LINE_BEGINS);
+        this.add(areaTexto2, BorderLayout.NORTH);
         this.add(botonera, BorderLayout.SOUTH);
         for (JButton boton : this.botonera.getgrupoBotones()) {
             boton.addActionListener(this);
@@ -110,12 +114,12 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
 
                         calcularResultado(tipoOperacion, Double.parseDouble(numeros[0]), Double.parseDouble(numeros[1]));
 
-                    } catch (Exception ex) {
-                        areaTexto.setText("Error de cálculo");
-                        //areaTexto.setText("");
-                        tipoOperacion = -1;
+                    } catch (NumberFormatException ex) {
+                        //areaTexto.setText("Error de cálculo");
+                        System.out.println("Error de cálculo");
                     }
                     break;
+
                 case "C":
                     areaTexto.setText("");
                     tipoOperacion = -1;
@@ -134,27 +138,30 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
         switch (tipoOperacion) {
             case 1: //suma
                 resultado = num1 + num2;
-                areaTexto.setText(Integer.toString((int) resultado));
+                areaTexto.setText(Double.toString(resultado));
+                areaTexto2.setText(num1+"+"+num2+"="+Double.toString(resultado));
                 break;
             case 2: //resta
                 resultado = num1 - num2;
-                areaTexto.setText(Integer.toString((int) resultado));
+                areaTexto.setText(Double.toString(resultado));
+                areaTexto2.setText(num1+"-"+num2+"="+Double.toString(resultado));
                 break;
             case 3: //multiplicación
                 resultado = num1 * num2;
-                areaTexto.setText(Integer.toString((int) resultado));
+                areaTexto.setText(Double.toString(resultado));
+                areaTexto2.setText(num1+"*"+num2+"="+Double.toString(resultado));
                 break;
             case 4: //división
                 if (num2 == 0) {
                     resultado = num1 / num2;
                     areaTexto.setText(Double.toString(resultado));
                     areaTexto.setText("No se puede dividir entre cero");
-                    //areaTexto.setText("");
-                    tipoOperacion = -1;
+
                     return 0;
                 }
                 resultado = num1 / num2;
                 areaTexto.setText(Double.toString(resultado));
+                areaTexto2.setText(num1+"/"+num2+"="+Double.toString(resultado));
                 break;
         }
         return resultado;
