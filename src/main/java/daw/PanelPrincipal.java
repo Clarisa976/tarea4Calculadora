@@ -90,8 +90,8 @@ public class PanelPrincipal extends javax.swing.JPanel implements ActionListener
             // RESTO DEL CÓDIGO DE LA LÓGICA DE LA CALCULADORA
 
             //si es un botón   
-        } else if (o instanceof JButton) {
-            String texto = ((JButton) o).getText();
+        } else if (o instanceof JButton jButton) {
+            String texto = jButton.getText();
             switch (texto) {
                 case "+":
                     tipoOperacion = 1;
